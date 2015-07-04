@@ -1,211 +1,213 @@
-/* DList1.java */
+/* DList2.java */
 
 /**
- *  A DList1 is a mutable doubly-linked list.  (No sentinel, not
- *  circularly linked.)
+ *  A DList2 is a mutable doubly-linked list.  Its implementation is
+ *  circularly-linked and employs a sentinel (dummy) node at the head
+ *  of the list.
  */
 
-public class DList1 {
-
-  /**
-   *  head references the first node.
-   *  tail references the last node.
-   *
-   *  DO NOT CHANGE THE FOLLOWING FIELD DECLARATIONS.
-   */
-
-  protected DListNode1 head;
-  protected DListNode1 tail;
-  protected long size;
-
-  /* DList1 invariants:
-   *  1)  head.prev == null.
-   *  2)  tail.next == null.
-   *  3)  For any DListNode1 x in a DList, if x.next == y and x.next != null,
-   *      then y.prev == x.
-   *  4)  For any DListNode1 x in a DList, if x.prev == y and x.prev != null,
-   *      then y.next == x.
-   *  5)  The tail can be accessed from the head by a sequence of "next"
-   *      references.
-   *  6)  size is the number of DListNode1s that can be accessed from the
-   *      head by a sequence of "next" references.
-   */
-
-  /**
-   *  DList1() constructor for an empty DList1.
-   */
-  public DList1() {
-    head = null;
-    tail = null;
-    size = 0;
-  }
-
-  /**
-   *  DList1() constructor for a one-node DList1.
-   */
-  public DList1(int a) {
-    head = new DListNode1();
-    tail = head;
-    head.item = a;
-    size = 1;
-  }
-
-  /**
-   *  DList1() constructor for a two-node DList1.
-   */
-  public DList1(int a, int b) {
-    head = new DListNode1();
-    head.item = a;
-    tail = new DListNode1();
-    tail.item = b;
-    head.next = tail;
-    tail.prev = head;
-    size = 2;
-  }
-
-  /**
-   *  insertFront() inserts an item at the front of a DList1.
-   */
-  public void insertFront(int i) {
-    // Your solution here.
-  }
-
-  /**
-   *  removeFront() removes the first item (and node) from a DList1.  If the
-   *  list is empty, do nothing.
-   */
-  public void removeFront() {
-    // Your solution here.
-  }
-
-  /**
-   *  toString() returns a String representation of this DList.
-   *
-   *  DO NOT CHANGE THIS METHOD.
-   *
-   *  @return a String representation of this DList.
-   */
-  public String toString() {
-    String result = "[  ";
-    DListNode1 current = head;
-    while (current != null) {
-      result = result + current.item + "  ";
-      current = current.next;
+public class DList2 {
+    
+    /**
+     *  head references the sentinel node.
+     *
+     *  DO NOT CHANGE THE FOLLOWING FIELD DECLARATIONS.
+     */
+    
+    protected DListNode2 head;
+    protected long size;
+    
+    /* DList2 invariants:
+     *  1)  head != null.
+     *  2)  For any DListNode2 x in a DList2, x.next != null.
+     *  3)  For any DListNode2 x in a DList2, x.prev != null.
+     *  4)  For any DListNode2 x in a DList2, if x.next == y, then y.prev == x.
+     *  5)  For any DListNode2 x in a DList2, if x.prev == y, then y.next == x.
+     *  6)  size is the number of DListNode2s, NOT COUNTING the sentinel
+     *      (denoted by "head"), that can be accessed from the sentinel by
+     *      a sequence of "next" references.
+     */
+    
+    /**
+     *  DList2() constructor for an empty DList2.
+     */
+    public DList2() {
+        head = new DListNode2();
+        head.item = Integer.MIN_VALUE;
+        head.next = head;
+        head.prev = head;
+        size = 0;
     }
-    return result + "]";
-  }
-
-  public static void main(String[] args) {
-    // DO NOT CHANGE THE FOLLOWING CODE.
-
-    DList1 l = new DList1();
-    System.out.println("### TESTING insertFront ###\nEmpty list is " + l);
-
-    l.insertFront(9);
-    System.out.println("\nInserting 9 at front.\nList with 9 is " + l);
-    if (l.head == null) {
-      System.out.println("head is null.");
-    } else {
-      if (l.head.item != 9) {
-        System.out.println("head.item is wrong.");
-      }
-      if (l.head.prev != null) {
-        System.out.println("head.prev is wrong.");
-      }
+    
+    /**
+     *  DList2() constructor for a one-node DList2.
+     */
+    public DList2(int a) {
+        head = new DListNode2();
+        head.item = Integer.MIN_VALUE;
+        head.next = new DListNode2();
+        head.next.item = a;
+        head.prev = head.next;
+        head.next.prev = head;
+        head.prev.next = head;
+        size = 1;
     }
-    if (l.tail == null) {
-      System.out.println("tail is null.");
-    } else {
-      if (l.tail.item != 9) {
-        System.out.println("tail.item is wrong.");
-      }
-      if (l.tail.next != null) {
-        System.out.println("tail.next is wrong.");
-      }
+    
+    /**
+     *  DList2() constructor for a two-node DList2.
+     */
+    public DList2(int a, int b) {
+        head = new DListNode2();
+        head.item = Integer.MIN_VALUE;
+        head.next = new DListNode2();
+        head.next.item = a;
+        head.prev = new DListNode2();
+        head.prev.item = b;
+        head.next.prev = head;
+        head.next.next = head.prev;
+        head.prev.next = head;
+        head.prev.prev = head.next;
+        size = 2;
     }
-    if (l.size != 1) {
-      System.out.println("size is wrong.");
+    
+    /**
+     *  insertFront() inserts an item at the front of a DList2.
+     */
+    public void insertFront(int i) {
+        
+        // Your solution here.
+        DListNode2 node = new DListNode2();
+	node.item = i;
+	node.prev = head;
+	node.next = head.next;
+	node.next.prev = node;
+	head.next = node;
+	size++;
     }
-
-    l.insertFront(8);
-    System.out.println("\nInserting 8 at front.\nList with 8 and 9 is " + l);
-    if (l.head == null) {
-      System.out.println("head is null.");
-    } else {
-      if (l.head.item != 8) {
-        System.out.println("head.item is wrong.");
-      }
-      if (l.head.prev != null) {
-        System.out.println("head.prev is wrong.");
-      }
-      if (l.head.next != l.tail) {
-        System.out.println("head.next is wrong.");
-      }
+    
+    /**
+     *  removeFront() removes the first item (and first non-sentinel node) from
+     *  a DList2.  If the list is empty, do nothing.
+     */
+    public void removeFront() {
+        // Your solution here.
+	head.next.next.prev = head;
+	head.next = head.next.next;
+	size--;
     }
-    if (l.tail == null) {
-      System.out.println("tail is null.");
-    } else {
-      if (l.tail.item != 9) {
-        System.out.println("tail.item is wrong.");
-      }
-      if (l.tail.next != null) {
-        System.out.println("tail.next is wrong.");
-      }
-      if (l.tail.prev != l.head) {
-        System.out.println("tail.prev is wrong.");
-      }
+    
+    /**
+     *  toString() returns a String representation of this DList.
+     *
+     *  DO NOT CHANGE THIS METHOD.
+     *
+     *  @return a String representation of this DList.
+     */
+    public String toString() {
+        String result = "[  ";
+        DListNode2 current = head.next;
+        while (current != head) {
+            result = result + current.item + "  ";
+            current = current.next;
+        }
+        return result + "]";
     }
-    if (l.size != 2) {
-      System.out.println("size is wrong.");
+    
+    public static void main(String[] args) {
+        // DO NOT CHANGE THE FOLLOWING CODE.
+        
+        DList2 l = new DList2();
+        System.out.println("### TESTING insertFront ###\nEmpty list is " + l);
+        
+        l.insertFront(9);
+        System.out.println("\nInserting 9 at front.\nList with 9 is " + l);
+        if (l.head.next.item != 9) {
+            System.out.println("head.next.item is wrong.");
+        }
+        if (l.head.next.prev != l.head) {
+            System.out.println("head.next.prev is wrong.");
+        }
+        if (l.head.prev.item != 9) {
+            System.out.println("head.prev.item is wrong.");
+        }
+        if (l.head.prev.next != l.head) {
+            System.out.println("head.prev.next is wrong.");
+        }
+        if (l.size != 1) {
+            System.out.println("size is wrong.");
+        }
+        
+        l.insertFront(8);
+        System.out.println("\nInserting 8 at front.\nList with 8 and 9 is " + l);
+        if (l.head.next.item != 8) {
+            System.out.println("head.next.item is wrong.");
+        }
+        if (l.head.next.prev != l.head) {
+            System.out.println("head.next.prev is wrong.");
+        }
+        if (l.head.prev.item != 9) {
+            System.out.println("head.prev.item is wrong.");
+        }
+        if (l.head.prev.next != l.head) {
+            System.out.println("head.prev.next is wrong.");
+        }
+        if (l.head.next.next != l.head.prev) {
+            System.out.println("l.head.next.next != l.head.prev.");
+        }
+        if (l.head.prev.prev != l.head.next) {
+            System.out.println("l.head.prev.prev != l.head.next.");
+        }
+        if (l.size != 2) {
+            System.out.println("size is wrong.");
+        }
+        
+        
+        
+        l = new DList2(1, 2);
+        System.out.println("\n\n### TESTING removeFront ###\nList with 1 and 2 is "
+                           + l);
+        
+        l.removeFront();
+        System.out.println("\nList with 2 is " + l);
+        if (l.head.next.item != 2) {
+            System.out.println("head.next.item is wrong.");
+        }
+        if (l.head.next.prev != l.head) {
+            System.out.println("head.next.prev is wrong.");
+        }
+        if (l.head.prev.item != 2) {
+            System.out.println("head.prev.item is wrong.");
+        }
+        if (l.head.prev.next != l.head) {
+            System.out.println("head.prev.next is wrong.");
+        }
+        if (l.size != 1) {
+            System.out.println("size is wrong.");
+        }
+        
+        l.removeFront();
+        System.out.println("\nEmpty list is " + l);
+        if (l.head.next != l.head) {
+            System.out.println("head.next is wrong.");
+        }
+        if (l.head.prev != l.head) {
+            System.out.println("head.prev is wrong.");
+        }
+        if (l.size != 0) {
+            System.out.println("size is wrong.");
+        }
+        
+        l.removeFront();
+        System.out.println("\nEmpty list is " + l);
+        if (l.head.next != l.head) {
+            System.out.println("head.next is wrong.");
+        }
+        if (l.head.prev != l.head) {
+            System.out.println("head.prev is wrong.");
+        }
+        if (l.size != 0) {
+            System.out.println("size is wrong.");
+        }
     }
-
-
-
-    l = new DList1(1, 2);
-    System.out.println("\n\n### TESTING removeFront ###\nList with 1 and 2 is "
-                       + l);
-
-    l.removeFront();
-    System.out.println("\nRemoving front node.\nList with 2 is " + l);
-    if (l.head.item != 2) {
-      System.out.println("head.item is wrong.");
-    }
-    if (l.head.prev != null) {
-      System.out.println("head.prev is wrong.");
-    }
-    if (l.tail.item != 2) {
-      System.out.println("tail.item is wrong.");
-    }
-    if (l.tail.next != null) {
-      System.out.println("tail.next is wrong.");
-    }
-    if (l.size != 1) {
-      System.out.println("size is wrong.");
-    }
-
-    l.removeFront();
-    System.out.println("\nRemoving front node.\nEmpty list is " + l);
-    if (l.head != null) {
-      System.out.println("head is wrong.");
-    }
-    if (l.tail != null) {
-      System.out.println("tail is wrong.");
-    }
-    if (l.size != 0) {
-      System.out.println("size is wrong.");
-    }
-
-    l.removeFront();
-    System.out.println("\nRemoving front node.\nEmpty list is " + l);
-    if (l.head != null) {
-      System.out.println("head is wrong.");
-    }
-    if (l.tail != null) {
-      System.out.println("tail is wrong.");
-    }
-    if (l.size != 0) {
-      System.out.println("size is wrong.");
-    }
-  }
-
+    
 }
