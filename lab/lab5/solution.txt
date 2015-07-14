@@ -1,0 +1,26 @@
+CS 61B Data Structure Lab5 solutions:
+
+Part I:
+1. xa = ya is valid, but ya = xa is not valid. // compile-time error
+	to make it valid, we need to add a cast to make the statement as: ya = (Y[]) xa;
+2. Both of the two steps are valid. 
+	In the first step, the statment "xa = ya" actually changes the reference of xa to where ya is pointing to. Since X is a superclass of Y, no cast is needed.
+	In the second step, ya = (Y[]) xa, we applied the cast. Since then xa is pointing to the array of Y's, so there is not run-time error.
+3. No. There will be run-time error.
+	Before the command ya = (Y[]) xa executes, xa references to an array of X's, whereas ya requires an array of Y's. By casting, we do not have a compile-time error, but will have a run-time error.
+
+Part II:
+1. yes.
+2. Java will not compile. Error message: YYY cannot override XXX 
+3. Java will not compile it.
+4. Yes. Even the name of the parameters are different, Java could compile it.
+
+Part III:
+1. Yes. Java will compile it regardless of whether the two constants have the same value.
+2. Jave will not compile it and give a message "ambiguous" no matter if the values are the same.
+3. We should indicate the superclass/interface name associated with the constant
+
+Part IV:
+1. It calls the subclass' method. 
+2. Java will compile this but will result in run time error of class cast exception.
+3. Not possible.

@@ -1,0 +1,8 @@
+public class Y extends X{
+    public int addone(boolean f){
+	x ++;
+	x ++;
+    return false;
+        
+    }
+}

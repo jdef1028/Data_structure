@@ -1,0 +1,25 @@
+public class X{
+    protected int x;
+    protected static int b;
+    protected boolean f;
+    public X(){
+	x = 0;
+	f = false;
+    }
+    public X(int obj){
+	x = obj;
+	f = false;
+    }
+
+    public static int addone(int xx){
+        return xx+1;
+    }
+    public static void main(String[] args){
+       X xa = new X();
+        System.out.println(addone(xa.x));
+	//Y ya = new Y();
+	//System.out.println(addone(1));
+	    
+    }
+}
+	
